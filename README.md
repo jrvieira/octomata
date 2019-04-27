@@ -1,4 +1,4 @@
-# Example: B234S/ (Serviettes)
+# Demo: B234S/ (Serviettes)
 
 This automaton produces patterns resembling those of persian rugs when the initial seed is a small, symmetric figure. The following simulation evolves from a 2x2 square seed.
 
