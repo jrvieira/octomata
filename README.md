@@ -2,6 +2,8 @@
 
 B234S/ (Serviettes)
 
+This automaton produces patterns resembling those of persian rugs when the initial seed is a small, symmetric figure.
+
 ![screenshot](https://raw.githubusercontent.com/jrvieira/octomata/master/io/1rug.png)
 ![screenshot](https://raw.githubusercontent.com/jrvieira/octomata/master/io/2rug.png)
 ![screenshot](https://raw.githubusercontent.com/jrvieira/octomata/master/io/3rug.png)
