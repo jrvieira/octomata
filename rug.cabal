@@ -1,0 +1,67 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.1.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: db382c6ce1dd0e00803bce920253d828c5df6371b9ba3dc0c053a210551c87cd
+
+name:           rug
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/jrvieira/rug#readme>
+homepage:       https://github.com/jrvieira/rug#readme
+bug-reports:    https://github.com/jrvieira/rug/issues
+author:         jrvieira
+maintainer:     github@jrvieira.com
+copyright:      jrvieira
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/jrvieira/rug
+
+library
+  exposed-modules:
+      Color
+      Shut
+      Zero
+  other-modules:
+      Paths_rug
+  hs-source-dirs:
+      src
+  build-depends:
+      base >=4.7 && <5
+  default-language: Haskell2010
+
+executable rug-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_rug
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , rug
+    , JuicyPixels
+    , containers
+    , directory
+  default-language: Haskell2010
+
+test-suite rug-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_rug
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
+    , rug
+  default-language: Haskell2010
