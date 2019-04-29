@@ -1,6 +1,8 @@
-# Demo: B234S/ (Serviettes)
+# Demo: B234/S (Serviettes)
 
-This automaton produces patterns resembling those of persian rugs when the initial seed is a small, symmetric configuration. The following simulation evolves from a 2x2 square seed.
+An automaton producing patterns resembling those of persian rugs when primed with a small, symmetric configuration. The following simulation sprouts from a simple 2x2 square.
+
+The algorythm translates all cartesian points from a single octant, effectively reducing both space and time complexity.
 
 ![screenshot](https://raw.githubusercontent.com/jrvieira/octomata/master/io/1rug.png)
 ![screenshot](https://raw.githubusercontent.com/jrvieira/octomata/master/io/2rug.png)
