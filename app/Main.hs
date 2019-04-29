@@ -34,9 +34,9 @@ f >< p
    where
       s     = side f
       (x,y) = (ord !! 1,ord !! 0)
-      ord   = sort . fmap reflect $ [fst p,snd p]
+      ord   = sort $ reflect <$> [fst p,snd p]
       reflect i
-         | i < 0     = abs i - 1
+         | i < 0     = - i - 1
          | otherwise = i
 
 side :: Frame -> Int
@@ -49,7 +49,7 @@ side f = tri 0 1 (size f)
 -- generation
 
 next :: Frame -> Frame
-next f = Map.fromList $ fmap automaton [(x,y) | x <- [0..i] , y <- [0..i] , x <= i , y <= x]
+next f = Map.fromList $ automaton <$> [(x,y) | x <- [0..i] , y <- [0..i] , x <= i , y <= x]
    where
       i = side f
       automaton :: Pos -> (Pos, State)
@@ -58,7 +58,7 @@ next f = Map.fromList $ fmap automaton [(x,y) | x <- [0..i] , y <- [0..i] , x <=
          O -> if count I (adjacents f p) `elem` [2,3,4  ] then (p,I) else (p,O)
 
 adjacents :: Frame -> Pos -> [State]
-adjacents f p = fmap (f ><) . fmap (p #) $ [N,W,E,S,NW,NE,SW,SE]
+adjacents f p = ((f ><).(p #)) <$> [N,W,E,S,NW,NE,SW,SE]
 
 (#) :: Pos -> Rel -> Pos
 (#) p@(x,y) r
