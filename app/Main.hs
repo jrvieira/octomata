@@ -6,7 +6,7 @@ import Color
 --import Control.Concurrent
 import Data.List
 import Data.Maybe
-import Data.Map as Map (Map, fromList, (!), size)
+import Data.Map.Strict as Map (Map, fromList, (!), size)
 import System.IO
 import System.Environment
 import System.Directory
