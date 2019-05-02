@@ -2,7 +2,8 @@
 
 An automaton producing patterns resembling those of persian rugs when primed with a small, symmetric configuration. The following simulation sprouts from a simple 2x2 square.
 
-Reflecting all cartesian points from a single octant, the algorithm efficiently runs on logarithmic space and time complexity.
+Logarithmic space and time complexity.
+All cartesian points reflected from a single octant.
 
 ![screenshot](https://raw.githubusercontent.com/jrvieira/octomata/master/io/1rug.png)
 ![screenshot](https://raw.githubusercontent.com/jrvieira/octomata/master/io/2rug.png)
