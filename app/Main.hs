@@ -30,7 +30,7 @@ buffer = iterate next
 (><) :: Frame -> Pos -> State
 f >< p
    | x >= s || y >= s = O
-   | otherwise   = f ! (x,y)
+   | otherwise        = f ! (x,y)
    where
       s     = side f
       (x,y) = (ord !! 1,ord !! 0)
