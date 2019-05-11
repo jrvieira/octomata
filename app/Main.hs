@@ -84,7 +84,7 @@ pixel f x y
    | I <- f >< (x',y') = black
    | _ <- f >< (x',y') = white
    where
-      s = side f
+      s  = side f
       x' = x - s
       y' = y - s
 
