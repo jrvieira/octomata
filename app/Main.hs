@@ -101,5 +101,5 @@ draw f = do
       s = side f
       w = s * 2
       h = w
-      file = "io/" ++ show s ++ "rug.png"
+      file = "io/" ++ show (s - 1) ++ "rug.png"
 
