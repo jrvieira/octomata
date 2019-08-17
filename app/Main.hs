@@ -40,9 +40,11 @@ f >< p
          | otherwise = i
 
 side :: Frame -> Int
-side f = triangular $ size f
+side f = tri 0 1 (size f)
    where
-      triangular x = x * (x + 1) `div` 2
+      tri acc i n
+         | acc + i == n = i
+         | otherwise    = tri (acc+i) (i+1) n
 
 -- generation
 
