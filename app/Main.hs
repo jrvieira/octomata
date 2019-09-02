@@ -11,7 +11,7 @@ import System.IO
 import System.Environment
 import System.Directory
 import Codec.Picture
-import Debug.Trace
+--import Debug.Trace
 
 data State = O | I deriving (Eq, Show)
 data Rel = N | W | E | S | NW | NE | SW | SE deriving Eq
