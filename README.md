@@ -1,10 +1,6 @@
 # Demo: B234/S (Serviettes)
 
-An automaton producing patterns resembling those of persian rugs when primed with a small, symmetric configuration. The following simulation sprouts from a simple 2x2 square.
-
-Logarithmic space and time complexity.
-
-All cartesian points reflect from a single octant.
+An automaton producing patterns resembling those of persian rugs when primed with a small, symmetric configuration. The following simulation sprouts from a simple 2x2 square in logarithmic time and space complexity, all cartesian points reflecting from a single octant.
 
 ![screenshot](https://raw.githubusercontent.com/jrvieira/octomata/master/io/1rug.png)
 ![screenshot](https://raw.githubusercontent.com/jrvieira/octomata/master/io/2rug.png)
