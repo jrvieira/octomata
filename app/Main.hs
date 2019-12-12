@@ -6,14 +6,14 @@ import Color
 --import Control.Concurrent
 import Data.List
 import Data.Maybe
-import Data.Map.Strict as Map (Map, fromList, (!), size)
+import Data.Map.Strict as Map (Map,fromList,(!),size)
 import System.IO
 import System.Environment
 import System.Directory
 import Codec.Picture
 --import Debug.Trace
 
-data State = O | I deriving (Eq, Show)
+data State = O | I deriving (Eq,Show)
 data Rel = N | W | E | S | NW | NE | SW | SE deriving Eq
 type Pos = (Int,Int)
 type Frame = Map Pos State
@@ -25,7 +25,7 @@ seed :: Frame
 seed = Map.fromList [((0,0),I)]
 
 buffer :: Frame -> [Frame]
-buffer = iterate next
+buffer = iterate step
 
 (><) :: Frame -> Pos -> State
 f >< p
@@ -48,11 +48,11 @@ side f = tri 0 1 (size f)
 
 -- generation
 
-next :: Frame -> Frame
-next f = Map.fromList $ automaton <$> [(x,y) | x <- [0..i] , y <- [0..i] , x <= i , y <= x]
+step :: Frame -> Frame
+step f = Map.fromList $ automaton <$> [(x,y) | x <- [0..i] , y <- [0..x]]
    where
       i = side f
-      automaton :: Pos -> (Pos, State)
+      automaton :: Pos -> (Pos,State)
       automaton p = case f >< p of
          I -> if count I (adjacents f p) `elem` [       ] then (p,I) else (p,O)
          O -> if count I (adjacents f p) `elem` [2,3,4  ] then (p,I) else (p,O)
