@@ -53,9 +53,14 @@ step f = Map.fromList $ automaton <$> [(x,y) | x <- [0..i] , y <- [0..x]]
    where
       i = side f
       automaton :: Pos -> (Pos,State)
-      automaton p = case f >< p of
-         I -> if count I (adjacents f p) `elem` [       ] then (p,I) else (p,O)
-         O -> if count I (adjacents f p) `elem` [2,3,4  ] then (p,I) else (p,O)
+      automaton p
+         -- B 2 3 4
+         | state == O && a `elem` [2,3,4  ] = (p,I)
+         -- S
+         | state == I && a `elem` [       ] = (p,I)
+            where
+               state = f >< p
+               a = count I (adjacents f p)
 
 adjacents :: Frame -> Pos -> [State]
 adjacents f p = ((f ><).(p #)) <$> [N,W,E,S,NW,NE,SW,SE]
