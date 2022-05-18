@@ -58,6 +58,7 @@ step f = Map.fromList $ automaton <$> [(x,y) | x <- [0..i] , y <- [0..x]]
       | state == O && a `elem` [2,3,4  ] = (p,I)
       -- S
       | state == I && a `elem` [       ] = (p,I)
+      | otherwise = (p,state)
       where
       state = f >< p
       a = count I (adjacents f p)
