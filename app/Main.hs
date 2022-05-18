@@ -32,12 +32,12 @@ f >< p
    | x >= s || y >= s = O
    | otherwise        = f ! (x,y)
    where
-      s     = side f
-      (x,y) = (ord !! 1,ord !! 0)
-      ord   = sort $ reflect <$> [fst p,snd p]
-      reflect i
-         | i < 0     = - i - 1
-         | otherwise = i
+   s     = side f
+   (x,y) = (ord !! 1,ord !! 0)
+   ord   = sort $ reflect <$> [fst p,snd p]
+   reflect i
+      | i < 0     = - i - 1
+      | otherwise = i
 
 side :: Frame -> Int
 side f = tri 0 1 (size f)
@@ -59,8 +59,8 @@ step f = Map.fromList $ automaton <$> [(x,y) | x <- [0..i] , y <- [0..x]]
       -- S
       | state == I && a `elem` [       ] = (p,I)
       where
-         state = f >< p
-         a = count I (adjacents f p)
+      state = f >< p
+      a = count I (adjacents f p)
 
 adjacents :: Frame -> Pos -> [State]
 adjacents f p = ((f ><).(p #)) <$> [N,W,E,S,NW,NE,SW,SE]
@@ -89,9 +89,9 @@ pixel f x y
    | I <- f >< (x',y') = black
    | _ <- f >< (x',y') = white
    where
-      s  = side f
-      x' = x - s
-      y' = y - s
+   s  = side f
+   x' = x - s
+   y' = y - s
 
 draw :: Frame -> IO ()
 draw f = do
@@ -103,8 +103,8 @@ draw f = do
       savePngImage file $ ImageY8 $ generateImage (pixel f) w h
       putStrLn $ clr Green file
    where
-      s = side f
-      w = s * 2
-      h = w
-      file = "io/" ++ show (s - 1) ++ "rug.png"
+   s = side f
+   w = s * 2
+   h = w
+   file = "io/" ++ show (s - 1) ++ "rug.png"
 
