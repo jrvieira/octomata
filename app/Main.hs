@@ -6,30 +6,36 @@ import Color
 --import Control.Concurrent
 import Data.List
 import Data.Maybe
-import Data.Map.Strict as Map (Map,fromList,(!),size)
+import Data.Map.Strict as Map ( Map , fromList , (!) , size )
 import System.IO
 import System.Environment
 import System.Directory
 import Codec.Picture
 --import Debug.Trace
 
-data State = O | I deriving (Eq,Show)
+type State = Bool
 data Rel = N | W | E | S | NW | NE | SW | SE deriving Eq
 type Pos = (Int,Int)
 type Frame = Map Pos State
 
+dir = "io"
+
 main :: IO ()
-main = mapM_ draw $ buffer seed
+main = do
+   createDirectoryIfMissing False dir
+   removeDirectoryRecursive dir
+   createDirectory dir
+   mapM_ draw $ buffer seed
 
 seed :: Frame
-seed = Map.fromList [((0,0),I)]
+seed = Map.fromList [((0,0),True)]
 
 buffer :: Frame -> [Frame]
 buffer = iterate step
 
 (><) :: Frame -> Pos -> State
 f >< p
-   | x >= s || y >= s = O
+   | x >= s || y >= s = False
    | otherwise        = f ! (x,y)
    where
    s     = side f
@@ -54,16 +60,13 @@ step f = Map.fromList $ automaton <$> [(x,y) | x <- [0..i] , y <- [0..x]]
    i = side f
    automaton :: Pos -> (Pos,State)
    automaton p
-      -- B 2 3 4
-      | state == O && a `elem` [2,3,4  ] = (p,I)
-      -- S
-      | state == I && a `elem` [       ] = (p,I)
+      | f >< p = (p , a `elem` [ ])  -- S
+      | otherwise = (p , a `elem` [2,3,4])  -- B
       where
-      state = f >< p
-      a = count I (adjacents f p)
+      a = count True (adjacents f p)
 
 adjacents :: Frame -> Pos -> [State]
-adjacents f p = ((f ><).(p #)) <$> [N,W,E,S,NW,NE,SW,SE]
+adjacents f p = ((f ><) . (p #)) <$> [N,W,E,S,NW,NE,SW,SE]
 
 (#) :: Pos -> Rel -> Pos
 (#) p@(x,y) r
@@ -86,8 +89,8 @@ white = 255
 
 pixel :: Frame -> Int -> Int -> Pixel8
 pixel f x y
-   | I <- f >< (x',y') = black
-   | _ <- f >< (x',y') = white
+   | f >< (x',y') = black
+   | otherwise = white
    where
    s  = side f
    x' = x - s
@@ -95,16 +98,11 @@ pixel f x y
 
 draw :: Frame -> IO ()
 draw f = do
-   createDirectoryIfMissing True "io"
-   done <- doesFileExist file
-   if done then do
-      putStrLn $ clr White (file ++ " skipped")
-   else do
-      savePngImage file $ ImageY8 $ generateImage (pixel f) w h
-      putStrLn $ clr Green file
+   savePngImage file $ ImageY8 $ generateImage (pixel f) w h
+   putStrLn $ clr Green file
    where
    s = side f
    w = s * 2
    h = w
-   file = "io/" ++ show (s - 1) ++ "rug.png"
+   file = dir ++ "/" ++ show (s - 1) ++ "rug.png"
 
