@@ -60,7 +60,7 @@ step f = Map.fromList $ automaton <$> [(x,y) | x <- [0..i] , y <- [0..x]]
    i = side f
    automaton :: Pos -> (Pos,State)
    automaton p
-      | f >< p    = (p , a `elem` [ ])  -- S
+      | f >< p    = (p , a `elem` [ ])      -- S
       | otherwise = (p , a `elem` [2,3,4])  -- B
       where
       a = count True (adjacents f p)
